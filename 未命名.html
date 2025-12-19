@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大学生创意创新创业 - PPT演示</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body { 
+            background-color: #f0f2f5; 
+            font-family: "Microsoft Yahei", sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        /* 16:9标准幻灯片容器，严格控制尺寸 */
+        .slide { 
+            width: 1280px; 
+            height: 720px; 
+            margin: 20px auto; 
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fc 100%);
+            border-radius: 16px; 
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08); 
+            padding: 40px; 
+            overflow: hidden; 
+            position: relative; 
+            border: 1px solid #eef1f5;
+        }
+        /* 背景装饰元素，不干扰内容 */
+        .slide::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(66, 153, 225, 0.05);
+            border-radius: 50%;
+            z-index: 0;
+        }
+        .slide::after {
+            content: "";
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 250px;
+            height: 250px;
+            background: rgba(72, 187, 120, 0.04);
+            border-radius: 50%;
+            z-index: 0;
+        }
+        /* 内容层统一层级，避免被背景遮挡 */
+        .slide-content {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        /* 字体体系统一，适配1280×720尺寸 */
+        .slide-title { 
+            font-size: 42px; 
+            font-weight: 700; 
+            color: #2d3748; 
+            margin-bottom: 24px; 
+            line-height: 1.2;
+        }
+        .slide-subtitle { 
+            font-size: 22px; 
+            color: #4a5568; 
+            margin-bottom: 32px; 
+            line-height: 1.4;
+        }
+        /* 网格布局精准分配空间，避免溢出 */
+        .content-grid { 
+            display: grid; 
+            gap: 20px;
+            flex: 1;
+            overflow: hidden;
+        }
+        /* 卡片样式：适配字体大小，预留足够留白 */
+        .card { 
+            background: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
+            border-radius: 12px; 
+            padding: 24px; 
+            border: 1px solid #eef1f5;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+        .card-title { 
+            font-size: 24px; 
+            font-weight: 600; 
+            color: #2d3748; 
+            margin-bottom: 16px; 
+            display: flex; 
+            align-items: center; 
+        }
+        .card-title i { 
+            margin-right: 12px; 
+            color: #4299e1; 
+            font-size: 26px;
+        }
+        .card-content { 
+            font-size: 16px; 
+            color: #4a5568; 
+            line-height: 1.7; 
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+        /* 滚动条美化，不影响排版 */
+        .card-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        .card-content::-webkit-scrollbar-thumb {
+            background: #eef1f5;
+            border-radius: 3px;
+        }
+        .list-item { 
+            margin-bottom: 12px; 
+            display: flex; 
+            align-items: flex-start; 
+        }
+        .list-item i { 
+            color: #48bb78; 
+            margin-right: 10px; 
+            margin-top: 6px; 
+            flex-shrink: 0; 
+            font-size: 16px;
+        }
+        /* 图表容器精准控高，避免与文字重叠 */
+        .chart-container { 
+            height: 280px;
+            margin-top: 16px;
+            width: 100%;
+        }
+        .footer { 
+            position: absolute; 
+            bottom: 30px; 
+            right: 40px; 
+            font-size: 15px; 
+            color: #718096; 
+            z-index: 1;
+        }
+        .highlight { 
+            color: #4299e1; 
+            font-weight: 600; 
+        }
+        /* 图标盒子尺寸适配，视觉均衡 */
+        .icon-box { 
+            width: 80px; 
+            height: 80px; 
+            background: linear-gradient(135deg, #e8f4f8 0%, #f0f8fb 100%);
+            border-radius: 16px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin-bottom: 24px; 
+            box-shadow: 0 4px 10px rgba(66, 153, 225, 0.1);
+        }
+        .icon-box i { 
+            font-size: 36px; 
+            color: #4299e1; 
+        }
+        /* 颜色变量统一 */
+        .text-4299e1 { color: #4299e1; }
+        .text-ed8936 { color: #ed8936; }
+        .text-9f7aea { color: #9f7aea; }
+        .text-38b2ac { color: #38b2ac; }
+        .text-48bb78 { color: #48bb78; }
+        .text-e53e3e { color: #e53e3e; }
+        .bg-e8f4f8 { background-color: #e8f4f8; }
+        .bg-fdf2f8 { background-color: #fdf2f8; }
+        .bg-f5fafe { background-color: #f5fafe; }
+        .bg-f0f8fb { background-color: #f0f8fb; }
+        /* 资源卡片样式：精准控高，避免溢出 */
+        .resource-item {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            border-left: 4px solid #4299e1;
+            flex-shrink: 0;
+        }
+        .resource-item i {
+            font-size: 24px;
+            color: #4299e1;
+            margin-right: 16px;
+            width: 40px;
+            text-align: center;
+        }
+        .resource-item h5 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+        .resource-item p {
+            font-size: 14px;
+            color: #718096;
+        }
+        /* 流程节点样式：尺寸统一，布局均衡 */
+        .process-node {
+            text-align: center;
+            width: 22%;
+            flex-shrink: 0;
+        }
+        .process-node .circle {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+        }
+        .process-node h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .process-node p {
+            font-size: 16px;
+            color: #718096;
+        }
+    </style>
+</head>
+<body>
+    <!-- 第1页：封面 - 排版均衡，无冗余元素 -->
+    <div class="slide">
+        <div class="slide-content flex flex-col items-center justify-center text-center">
+            <div class="icon-box">
+                <i class="fa fa-lightbulb-o"></i>
+            </div>
+            <div class="slide-title">大学生创意创新创业</div>
+            <div class="slide-subtitle">轻资产创业的实践路径与成长指南</div>
+            <div style="margin-top: 60px; font-size: 20px; color: #718096; line-height: 1.6;">
+                <p>用创意赋能技能 · 用实践点亮未来</p>
+            </div>
+            <div class="footer">郑州大学西亚斯国际学院 · 经济与管理学院</div>
+        </div>
+    </div>
+
+    <!-- 第2页：目录 - 网格布局均分空间，无拥挤 -->
+    <div class="slide">
+        <div class="slide-content">
+            <div class="slide-title">目录</div>
+            <div class="content-grid grid-cols-2 grid-rows-3">
+                <div class="card flex items-center p-6">
+                    <i class="fa fa-bookmark-o text-3xl text-4299e1 mr-6"></i>
+                    <div>
+                        <div class="card-title mb-0">时代背景与创业机遇</div>
+                        <div class="card-content text-sm">就业新形势下的轻资产创业选择</div>
+                    </div>
+                </div>
+                <div class="card flex items-center p-6">
+                    <i class="fa fa-exclamation-triangle text-3xl text-ed8936 mr-6"></i>
+                    <div>
+                        <div class="card-title mb-0">现状洞察与核心痛点</div>
+                        <div class="card-content text-sm">大学生创业的现实困境解析</div>
+                    </div>
+                </div>
+                <div class="card flex items-center p-6">
+                    <i class="fa fa-cogs text-3xl text-9f7aea mr-6"></i>
+                    <div>
+                        <div class="card-title mb-0">双轮驱动的核心逻辑</div>
+                        <div class="card-content text-sm">创意内容与专业技能的协同之道</div>
+                    </div>
+                </div>
+                <div class="card flex items-center p-6">
+                    <i class="fa fa-line-chart text-3xl text-38b2ac mr-6"></i>
+                    <div>
+                        <div class="card-title mb-0">实践规律与优化方向</div>
+                        <div class="card-content text-sm">从0到1的创业落地技巧</div>
+                    </div>
+                </div>
+                <div class="card flex items-center p-6">
+                    <i class="fa fa-check-circle text-3xl text-48bb78 mr-6"></i>
+                    <div>
+                        <div class="card-title mb-0">结论与行动建议</div>
+                        <div class="card-content text-sm">写给创业者的实操指南</div>
+                    </div>
+                </div>
+                <div class="card flex items-center p-6">
+                    <i class="fa fa-rocket text-3xl text-e53e3e mr-6"></i>
+                    <div>
+                        <div class="card-title mb-0">未来展望</div>
+                        <div class="card-content text-sm">技术发展下的创业新可能</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第3页：时代背景与创业机遇 - 图表与文字布局均衡 -->
+    <div class="slide">
+        <div class="slide-content">
+            <div class="slide-title">时代背景与创业机遇</div>
+            <div class="content-grid grid-cols-2">
+                <div class="card">
+                    <div class="card-title"><i class="fa fa-users"></i>就业市场新形势</div>
+                    <div class="card-content">
+                        <div class="list-item">
+                            <i class="fa fa-angle-right"></i>
+                            <span>2023届高校毕业生达<span class="highlight">1158万</span>，就业竞争日趋激烈</span>
+                        </div>
+                        <div class="list-item">
+                            <i class="fa fa-angle-right"></i>
+                            <span>超<span class="highlight">40%</span>大学生选择副业创业，缓解就业压力</span>
+                        </div>
+                        <div class="list-item">
+                            <i class="fa fa-angle-right"></i>
+                            <span>轻资产创业成为主流选择，低风险、高灵活度适配学生群体</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="employmentChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title"><i class="fa fa-handshake-o"></i>创业优势与市场需求</div>
+                    <div class="card-content">
+                        <div class="mb-4">
+                            <h4 class="font-semibold text-xl mb-2">学生天然优势</h4>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span>互联网原生代，熟练掌握剪辑、图文创作等基础技能</span>
+                            </div>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span>熟悉小红书、抖音等平台运营逻辑，懂年轻用户需求</span>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <h4 class="font-semibold text-xl mb-2">旺盛市场需求</h4>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span>求职场景：<span class="highlight">70%</span>求职者愿为优质简历服务付费</span>
+                            </div>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span>校园场景：超<span class="highlight">90%</span>学生有短视频剪辑、活动宣传等需求</span>
+                            </div>
+                        </div>
+                        <div style="padding: 15px; background: #e8f4f8; border-radius: 8px;">
+                            <p class="text-base text-4299e1"><i class="fa fa-lightbulb-o mr-2"></i>机遇点：将学生群体的技能优势与内部需求精准对接，打造创业闭环</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第4页：现状洞察与核心痛点 - 三列布局均分，内容适配 -->
+    <div class="slide">
+        <div class="slide-content">
+            <div class="slide-title">现状洞察与核心痛点</div>
+            <div class="content-grid grid-cols-3">
+                <div class="card">
+                    <div class="card-title"><i class="fa fa-exchange"></i>供需错配困境</div>
+                    <div class="card-content">
+                        <div class="list-item">
+                            <i class="fa fa-angle-right"></i>
+                            <span>对接渠道零散：依赖朋友圈、班级群转发</span>
+                        </div>
+                        <div class="list-item">
+                            <i class="fa fa-angle-right"></i>
+                            <span>有技能无订单：优质服务者曝光不足</span>
+                        </div>
+                        <div class="list-item">
+                            <i class="fa fa-angle-right"></i>
+                            <span>有需求难找到：用户寻找服务效率低下</span>
+                        </div>
+                        <div style="margin-top: 16px; text-align: center;">
+                            <img src="https://picsum.photos/id/28/260/160" alt="供需错配示意图" class="rounded-lg shadow-sm w-full object-cover">
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title"><i class="fa fa-repeat"></i>创业模式单一</div>
+                    <div class="card-content">
+                        <div class="list-item">
+                            <i class="fa fa-angle-right"></i>
+                            <span>被动接单为主：<span class="highlight">75%</span>订单来自熟人介绍</span>
+                        </div>
+                        <div class="list-item">
+                            <i class="fa fa-angle-right"></i>
+                            <span>引流策略失当：直接发广告，缺乏价值输出</span>
+                        </div>
+                        <div class="list-item">
+                            <i class="fa fa-angle-right"></i>
+                            <span>内容技能脱节：无法将流量转化为订单</span>
+                        </div>
+                        <div class="list-item">
+                            <i class="fa fa-angle-right"></i>
+                            <span>流量竞争激烈：平台创作者超3000万，突围困难</span>
+                        </div>
+                        <div style="margin-top: 16px; padding: 12px; background: #fdf2f8; border-radius: 6px;">
+                            <p class="text-base text-9f7aea"><i class="fa fa-exclamation-circle mr-2"></i>42%创业者因引流无果放弃创业尝试</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title"><i class="fa fa-bug"></i>四大核心痛点</div>
+                    <div class="card-content space-y-3">
+                        <div style="padding: 12px; background: #f0f8fb; border-radius: 8px;">
+                            <h4 class="font-semibold text-4299e1 text-lg">1. 获客难</h4>
+                            <p class="text-base mt-1">无资金投放广告，免费引流缺乏系统方法</p>
+                        </div>
+                        <div style="padding: 12px; background: #fef7fb; border-radius: 8px;">
+                            <h4 class="font-semibold text-9f7aea text-lg">2. 转化低</h4>
+                            <p class="text-base mt-1">流量转化率不足5%，内容与服务脱节</p>
+                        </div>
+                        <div style="padding: 12px; background: #faf0f5; border-radius: 8px;">
+                            <h4 class="font-semibold text-ed8936 text-lg">3. 信任弱</h4>
+                            <p class="text-base mt-1">37%用户不愿选择陌生同学服务，缺乏品牌背书</p>
+                        </div>
+                        <div style="padding: 12px; background: #f5fafe; border-radius: 8px;">
+                            <h4 class="font-semibold text-38b2ac text-lg">4. 平衡难</h4>
+                            <p class="text-base mt-1">订单高峰期与学业冲突，时间管理困难</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第5页：双轮驱动核心逻辑（内容端） - 两列布局，内容无溢出 -->
+    <div class="slide">
+        <div class="slide-content">
+            <div class="slide-title">双轮驱动核心逻辑：内容端赋能</div>
+            <div class="content-grid grid-cols-2">
+                <div class="card">
+                    <div class="card-title"><i class="fa fa-pencil-square-o"></i>内容创作核心原则</div>
+                    <div class="card-content">
+                        <div class="grid grid-cols-3 gap-3 mb-4">
+                            <div class="text-center p-3 bg-e8f4f8 rounded-lg">
+                                <i class="fa fa-map-marker text-2xl text-4299e1 mb-2"></i>
+                                <h4 class="font-semibold text-lg">场景化</h4>
+                                <p class="text-sm mt-1">聚焦校园高频需求</p>
+                            </div>
+                            <div class="text-center p-3 bg-fdf2f8 rounded-lg">
+                                <i class="fa fa-thumbs-up text-2xl text-9f7aea mb-2"></i>
+                                <h4 class="font-semibold text-lg">实用化</h4>
+                                <p class="text-sm mt-1">提供可落地干货</p>
+                            </div>
+                            <div class="text-center p-3 bg-f5fafe rounded-lg">
+                                <i class="fa fa-star text-2xl text-ed8936 mb-2"></i>
+                                <h4 class="font-semibold text-lg">差异化</h4>
+                                <p class="text-sm mt-1">打造独特记忆点</p>
+                            </div>
+                        </div>
+                        <div class="list-item mb-3">
+                            <i class="fa fa-angle-right"></i>
+                            <span>内容核心价值：<span class="highlight">免费提供实用价值，精准吸引目标客户</span></span>
+                        </div>
+                        <div class="list-item mb-3">
+                            <i class="fa fa-angle-right"></i>
+                            <span>内容定位：既是引流工具，也是信任载体</span>
+                        </div>
+                        <div class="list-item mb-4">
+                            <i class="fa fa-angle-right"></i>
+                            <span>避免硬广：用干货建立连接，自然引导转化</span>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-xl mb-2">标题创作技巧</h4>
+                            <div class="text-base space-y-2">
+                                <p><i class="fa fa-check text-48bb78 mr-2"></i>包含核心关键词：如“校园+技能+需求”</p>
+                                <p><i class="fa fa-check text-48bb78 mr-2"></i>突出利益点：如“3步搞定”“新手也会”</p>
+                                <p><i class="fa fa-check text-48bb78 mr-2"></i>引用权威数据：如“HR看简历不超10秒”</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title"><i class="fa fa-plug"></i>平台适配与内容示例</div>
+                    <div class="card-content">
+                        <div class="mb-4">
+                            <h4 class="font-semibold text-xl mb-2 flex items-center"><i class="fa fa-book text-4299e1 mr-2"></i>小红书（图文为主）</h4>
+                            <div class="bg-white p-3 rounded-lg border border-gray-100 mb-2 shadow-sm">
+                                <p class="font-medium text-lg">案例1：短视频剪辑类</p>
+                                <p class="text-base text-gray-600 mt-1">标题：《校园活动视频怎么剪？3步搞定，新手也会》</p>
+                                <p class="text-sm text-gray-500 mt-1">内容结构：步骤拆解+截图演示+自然引导</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-sm">
+                                <p class="font-medium text-lg">案例2：求职技能类</p>
+                                <p class="text-base text-gray-600 mt-1">标题：《HR最关注的3个简历关键词，瞬间加分》</p>
+                                <p class="text-sm text-gray-500 mt-1">内容结构：痛点分析+技巧分享+对比案例</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-xl mb-2 flex items-center"><i class="fa fa-video-camera text-e53e3e mr-2"></i>抖音（短视频为主）</h4>
+                            <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-sm">
+                                <p class="font-medium text-lg">内容特点：30-60秒实操教程</p>
+                                <p class="text-base text-gray-600 mt-1">示例主题：《1分钟学会Vlog转场》《剪映AI配音技巧》</p>
+                                <p class="text-sm text-gray-500 mt-1">优化要点：关键词布局+互动引导+案例链接</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第6页：双轮驱动核心逻辑（技能端） - 布局重构，流程节点均衡 -->
+    <div class="slide">
+        <div class="slide-content">
+            <div class="slide-title">双轮驱动核心逻辑：技能端变现</div>
+            <div class="content-grid grid-cols-3">
+                <div class="card">
+                    <div class="card-title"><i class="fa fa-tasks"></i>服务分级设计</div>
+                    <div class="card-content space-y-3">
+                        <div style="padding: 12px; background: #f0f8fb; border-radius: 6px;">
+                            <h4 class="font-semibold text-4299e1 text-base">基础版</h4>
+                            <p class="text-sm mt-1">满足基础需求</p>
+                            <p class="text-base mt-1">• 格式规范/基础剪辑</p>
+                            <p class="text-base">• 24-48小时交付</p>
+                            <p class="text-base">• 1次小修改</p>
+                        </div>
+                        <div style="padding: 12px; background: #fef7fb; border-radius: 6px;">
+                            <h4 class="font-semibold text-9f7aea text-base">进阶版</h4>
+                            <p class="text-sm mt-1">提升核心竞争力</p>
+                            <p class="text-base mt-1">• 深度优化/特效制作</p>
+                            <p class="text-base">• 48-72小时交付</p>
+                            <p class="text-base">• 2-3次修改</p>
+                        </div>
+                        <div style="padding: 12px; background: #f5fafe; border-radius: 6px;">
+                            <h4 class="font-semibold text-ed8936 text-base">定制版</h4>
+                            <p class="text-sm mt-1">高端个性化需求</p>
+                            <p class="text-base mt-1">• 全流程服务/配套支持</p>
+                            <p class="text-base">• 协商交付时间</p>
+                            <p class="text-base">• 专属咨询指导</p>
+                        </div>
+                        <div style="margin-top: 12px; padding: 10px; background: #f8f8f8; border-radius: 6px;">
+                            <p class="text-base text-gray-600"><i class="fa fa-lightbulb-o mr-1"></i>定价原则：参考市场区间+自身技能水平+时间成本</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card col-span-2">
+                    <div class="card-title"><i class="fa fa-refresh"></i>标准化交付流程</div>
+                    <div class="card-content">
+                        <!-- 流程节点布局重构，避免错位 -->
+                        <div class="flex items-center justify-between mb-4 overflow-hidden">
+                            <div class="process-node">
+                                <div class="circle bg-e8f4f8">
+                                    <i class="fa fa-question-circle text-2xl text-4299e1"></i>
+                                </div>
+                                <h4>咨询阶段</h4>
+                                <p>自动回复+案例展示</p>
+                            </div>
+                            <i class="fa fa-long-arrow-right text-gray-300 text-xl"></i>
+                            <div class="process-node">
+                                <div class="circle bg-fdf2f8">
+                                    <i class="fa fa-comments text-2xl text-9f7aea"></i>
+                                </div>
+                                <h4>沟通阶段</h4>
+                                <p>标准化问卷收集需求</p>
+                            </div>
+                            <i class="fa fa-long-arrow-right text-gray-300 text-xl"></i>
+                            <div class="process-node">
+                                <div class="circle bg-f5fafe">
+                                    <i class="fa fa-paper-plane text-2xl text-ed8936"></i>
+                                </div>
+                                <h4>交付阶段</h4>
+                                <p>成品+优化说明</p>
+                            </div>
+                            <i class="fa fa-long-arrow-right text-gray-300 text-xl"></i>
+                            <div class="process-node">
+                                <div class="circle bg-f0f8fb">
+                                    <i class="fa fa-thumbs-up text-2xl text-38b2ac"></i>
+                                </div>
+                                <h4>售后阶段</h4>
+                                <p>明确修改范围+保障</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-semibold text-xl mb-2">流程优化价值</h4>
+                                <div class="list-item">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span>沟通效率提升<span class="highlight">30%</span>以上</span>
+                                </div>
+                                <div class="list-item">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span>纠纷发生率降低<span class="highlight">60%</span></span>
+                                </div>
+                                <div class="list-item">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span>客户信任度显著提升</span>
+                                </div>
+                                <div class="list-item">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span>降低重复沟通成本</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-xl mb-2">关键保障措施</h4>
+                                <div class="list-item">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span>书面约定：微信文字确认核心条款</span>
+                                </div>
+                                <div class="list-item">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span>隐私保护：隐去客户敏感信息</span>
+                                </div>
+                                <div class="list-item">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span>边界明确：提前说明服务范围</span>
+                                </div>
+                                <div class="list-item">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span>案例留存：积累优质服务案例库</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第7页：双轮驱动核心逻辑（协同路径） - 三列布局，内容紧凑不拥挤 -->
+    <div class="slide">
+        <div class="slide-content">
+            <div class="slide-title">双轮驱动核心逻辑：协同转化路径</div>
+            <div class="content-grid grid-cols-3">
+                <div class="card">
+                    <div class="card-title"><i class="fa fa-crosshairs"></i>精准引流</div>
+                    <div class="card-content">
+                        <div style="margin-bottom: 16px;">
+                            <h4 class="font-semibold text-xl mb-2">目标客户画像</h4>
+                            <div class="bg-white p-3 rounded-lg border border-gray-100 mb-2 shadow-sm">
+                                <p class="font-medium text-4299e1 text-lg">核心群体1：求职学生</p>
+                                <p class="text-base mt-1">大三、大四为主，需求：简历优化、面试指导</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-sm">
+                                <p class="font-medium text-9f7aea text-lg">核心群体2：校园组织者</p>
+                                <p class="text-base mt-1">社团、学生会，需求：视频剪辑、活动宣传</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-xl mb-2">平台矩阵策略</h4>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span><span class="highlight">小红书</span>：精致化需求用户</span>
+                            </div>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span><span class="highlight">抖音</span>：大众化基础需求</span>
+                            </div>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span><span class="highlight">微信</span>：私域沉淀转化</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title"><i class="fa fa-handshake-o"></i>信任构建</div>
+                    <div class="card-content">
+                        <div class="mb-4">
+                            <h4 class="font-semibold text-xl mb-2">双重背书策略</h4>
+                            <div class="space-y-2">
+                                <div style="padding: 10px; background: #e8f4f8; border-radius: 6px;">
+                                    <h5 class="font-semibold text-4299e1 text-lg">1. 内容干货背书</h5>
+                                    <p class="text-base mt-1">持续输出专业内容，展现能力</p>
+                                    <p class="text-base mt-1">示例：分享HR筛选标准、剪辑思路</p>
+                                </div>
+                                <div style="padding: 10px; background: #fdf2f8; border-radius: 6px;">
+                                    <h5 class="font-semibold text-9f7aea text-lg">2. 权威资源背书</h5>
+                                    <p class="text-base mt-1">引用数据、技能认证、师资支持</p>
+                                    <p class="text-base mt-1">示例：剪映证书、HR行业数据</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-xl mb-2">情感共鸣技巧</h4>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span>贴合学生使用习惯（AI工具技巧）</span>
+                            </div>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span>分享创业历程，拉近距离</span>
+                            </div>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span>真实案例分享，增强说服力</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title"><i class="fa fa-exchange"></i>低门槛转化</div>
+                    <div class="card-content">
+                        <div class="space-y-3 mb-4">
+                            <div style="padding: 12px; background: #f0f8fb; border-radius: 8px;">
+                                <h5 class="font-semibold text-4299e1 flex items-center text-lg"><i class="fa fa-gift mr-2"></i>免费福利类</h5>
+                                <p class="text-base mt-1">• 简历模板领取</p>
+                                <p class="text-base">• 剪辑工具插件</p>
+                                <p class="text-base">• 行业干货资料</p>
+                            </div>
+                            <div style="padding: 12px; background: #fef7fb; border-radius: 8px;">
+                                <h5 class="font-semibold text-9f7aea flex items-center text-lg"><i class="fa fa-tags mr-2"></i>体验服务类</h5>
+                                <p class="text-base mt-1">• 免费简历评估</p>
+                                <p class="text-base">• 短视频小样试做</p>
+                                <p class="text-base">• 1对1咨询15分钟</p>
+                            </div>
+                            <div style="padding: 12px; background: #f5fafe; border-radius: 8px;">
+                                <h5 class="font-semibold text-ed8936 flex items-center text-lg"><i class="fa fa-users mr-2"></i>社群沉淀类</h5>
+                                <p class="text-base mt-1">• 主题交流群</p>
+                                <p class="text-base">• 定期干货分享</p>
+                                <p class="text-base">• 老客户推荐奖励</p>
+                            </div>
+                        </div>
+                        <div style="padding: 10px; background: #f8f8f8; border-radius: 6px;">
+                            <p class="text-lg font-semibold mb-1">转化关键数据</p>
+                            <p class="text-base text-gray-600"><i class="fa fa-bar-chart mr-1"></i>低门槛入口转化率可达<span class="highlight">20%</span>以上</p>
+                            <p class="text-base text-gray-600 mt-1"><i class="fa fa-refresh mr-1"></i>社群用户复购率比散客高<span class="highlight">3倍</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第8页：实践规律与优化方向 - 两列布局，内容适配 -->
+    <div class="slide">
+        <div class="slide-content">
+            <div class="slide-title">实践规律与优化方向</div>
+            <div class="content-grid grid-cols-2">
+                <div class="card">
+                    <div class="card-title"><i class="fa fa-compass"></i>四大核心实践规律</div>
+                    <div class="card-content space-y-4">
+                        <div class="flex">
+                            <div class="w-12 h-12 rounded-full bg-e8f4f8 flex items-center justify-center flex-shrink-0 mr-4">
+                                <span class="font-bold text-4299e1 text-xl">01</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-xl">内容精准定位</h4>
+                                <p class="text-gray-600 mt-1 text-base">聚焦细分场景才能突破竞争壁垒，避免泛化内容导致流量稀释</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-12 h-12 rounded-full bg-fdf2f8 flex items-center justify-center flex-shrink-0 mr-4">
+                                <span class="font-bold text-9f7aea text-xl">02</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-xl">服务标准化</h4>
+                                <p class="text-gray-600 mt-1 text-base">清晰的流程与边界能降低客户决策成本，是建立信任的核心</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-12 h-12 rounded-full bg-f5fafe flex items-center justify-center flex-shrink-0 mr-4">
+                                <span class="font-bold text-ed8936 text-xl">03</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-xl">资源整合</h4>
+                                <p class="text-gray-600 mt-1 text-base">对接校内师资、社团组织，弥补学生创业者资源不足的短板</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-12 h-12 rounded-full bg-f0f8fb flex items-center justify-center flex-shrink-0 mr-4">
+                                <span class="font-bold text-38b2ac text-xl">04</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-xl">时间管理</h4>
+                                <p class="text-gray-600 mt-1 text-base">批量创作内容、设置接单上限，平衡学业与创业的关系</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title"><i class="fa fa-wrench"></i>常见问题与优化方向</div>
+                    <div class="card-content space-y-3">
+                        <div style="padding: 12px; background: #f8f8f8; border-radius: 8px;">
+                            <h4 class="font-semibold text-4299e1 text-xl">问题1：内容创作缺乏持续性</h4>
+                            <p class="text-base mt-1">优化方向：</p>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span>建立主题素材库，提前规划选题</span>
+                            </div>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span>批量创作+定期更新，减少重复劳动</span>
+                            </div>
+                        </div>
+                        <div style="padding: 12px; background: #f8f8f8; border-radius: 8px;">
+                            <h4 class="font-semibold text-9f7aea text-xl">问题2：专业技能存在局限</h4>
+                            <p class="text-base mt-1">优化方向：</p>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span>针对性学习进阶技能，弥补短板</span>
+                            </div>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span>建立跨专业协作网络，互补共赢</span>
+                            </div>
+                        </div>
+                        <div style="padding: 12px; background: #f8f8f8; border-radius: 8px;">
+                            <h4 class="font-semibold text-ed8936 text-xl">问题3：流量转化效率低</h4>
+                            <p class="text-base mt-1">优化方向：</p>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span>强化内容与服务的关联性，自然植入</span>
+                            </div>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span>优化私域运营，个性化激活用户</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第9页：结论与行动建议 - 两列布局，图片尺寸适配 -->
+    <div class="slide">
+        <div class="slide-content">
+            <div class="slide-title">结论与行动建议</div>
+            <div class="content-grid grid-cols-2">
+                <div class="card">
+                    <div class="card-title"><i class="fa fa-check-square-o"></i>核心研究结论</div>
+                    <div class="card-content">
+                        <div class="list-item">
+                            <i class="fa fa-angle-right"></i>
+                            <span>大学生线上创业需求旺盛，但面临<span class="highlight">获客难、转化低、信任弱、平衡难</span>四大痛点</span>
+                        </div>
+                        <div class="list-item">
+                            <i class="fa fa-angle-right"></i>
+                            <span>双轮驱动模式通过<span class="highlight">精准引流、标准化服务、协同转化</span>，有效破解创业困境</span>
+                        </div>
+                        <div class="list-item">
+                            <i class="fa fa-angle-right"></i>
+                            <span>该模式具有<span class="highlight">低门槛、易操作、风险低</span>的特点，高度适配大学生群体</span>
+                        </div>
+                        <div class="list-item">
+                            <i class="fa fa-angle-right"></i>
+                            <span>成功关键在于<span class="highlight">内容精准定位、服务标准化、资源整合、时间管理</span>四大规律</span>
+                        </div>
+                        <div style="margin-top: 16px; text-align: center;">
+                            <img src="https://picsum.photos/id/180/450/160" alt="创业闭环示意图" class="rounded-lg shadow-sm w-full object-cover">
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title"><i class="fa fa-rocket"></i>实操行动建议</div>
+                    <div class="card-content">
+                        <div class="mb-4">
+                            <h4 class="font-semibold text-xl mb-2 flex items-center"><i class="fa fa-user text-4299e1 mr-2"></i>给大学生创业者</h4>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span><span class="highlight">精准定位</span>：结合自身技能，深耕细分场景</span>
+                            </div>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span><span class="highlight">规范服务</span>：明确流程规则，用专业积累口碑</span>
+                            </div>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span><span class="highlight">平衡发展</span>：优先保障学业，高效管理时间</span>
+                            </div>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span><span class="highlight">持续学习</span>：迭代技能与运营方法，适应变化</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-xl mb-2 flex items-center"><i class="fa fa-university text-9f7aea mr-2"></i>给高校双创教育</h4>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span>课程优化：增加内容运营、服务标准化等实操教学</span>
+                            </div>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span>资源搭建：对接师资、社团资源，提供实践平台</span>
+                            </div>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span>氛围营造：鼓励低成本试错，分享创业经验</span>
+                            </div>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span>校企合作：引入企业资源，提升创业实战性</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第10页：未来展望与创业资源 - 布局重构，资源卡片适配 -->
+    <div class="slide">
+        <div class="slide-content">
+            <div class="slide-title">未来展望与创业资源推荐</div>
+            <div class="content-grid grid-cols-2">
+                <div class="card">
+                    <div class="card-title"><i class="fa fa-eye"></i>未来发展展望</div>
+                    <div class="card-content">
+                        <div class="mb-4">
+                            <h4 class="font-semibold text-xl mb-2">研究局限</h4>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span>场景局限：聚焦短视频剪辑、简历优化两大领域</span>
+                            </div>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span>时间局限：未追踪长期运营效果</span>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <h4 class="font-semibold text-xl mb-2">拓展方向</h4>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span>场景拓展：文案撰写、PPT制作、语言翻译等</span>
+                            </div>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span>技术融合：AI工具在内容创作、技能服务中的深度应用</span>
+                            </div>
+                            <div class="list-item">
+                                <i class="fa fa-angle-right"></i>
+                                <span>模式升级：跨平台协同运营、规模化发展路径</span>
+                            </div>
+                        </div>
+                        <div style="padding: 12px; background: #e8f4f8; border-radius: 8px;">
+                            <p class="text-base font-semibold text-4299e1"><i class="fa fa-lightbulb-o mr-2"></i>创业趋势：技术赋能+精准运营+价值服务</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="flex flex-col items-center mb-4">
+                        <div class="icon-box mb-2">
+                            <i class="fa fa-graduation-cap"></i>
+                        </div>
+                        <div class="slide-subtitle text-center mb-2">优质创业资源推荐</div>
+                    </div>
+                    <div class="card-content pb-0">
+                        <div class="resource-item">
+                            <i class="fa fa-book"></i>
+                            <div>
+                                <h5>创业技能学习平台</h5>
+                                <p>剪映创作学院、小红书创作者中心、B站技能专区</p>
+                            </div>
+                        </div>
+                        <div class="resource-item">
+                            <i class="fa fa-users"></i>
+                            <div>
+                                <h5>校园创业社群</h5>
+                                <p>高校双创中心、创业社团、技能服务交流群</p>
+                            </div>
+                        </div>
+                        <div class="resource-item">
+                            <i class="fa fa-line-chart"></i>
+                            <div>
+                                <h5>数据参考工具</h5>
+                                <p>新抖、千瓜数据、艾瑞咨询（大学生创业报告）</p>
+                            </div>
+                        </div>
+                        <div class="resource-item">
+                            <i class="fa fa-trophy"></i>
+                            <div>
+                                <h5>创业竞赛与扶持</h5>
+                                <p>"互联网+"大学生创新创业大赛、校级创业孵化项目</p>
+                            </div>
+                        </div>
+                        <div style="margin-top: 16px; padding: 16px; background: #e8f4f8; border-radius: 10px; text-align: center;">
+                            <p class="text-base text-4299e1 font-semibold"><i class="fa fa-quote-left mr-2"></i>持续学习 + 小步试错 = 创业成功<i class="fa fa-quote-right ml-2"></i></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 就业市场图表 - 尺寸适配，避免溢出
+        const employmentCtx = document.getElementById('employmentChart').getContext('2d');
+        new Chart(employmentCtx, {
+            type: 'bar',
+            data: {
+                labels: ['2021', '2022', '2023', '2024(预测)'],
+                datasets: [
+                    {
+                        label: '高校毕业生人数（万）',
+                        data: [909, 1076, 1158, 1200],
+                        backgroundColor: 'rgba(66, 153, 225, 0.6)',
+                        borderColor: 'rgba(66, 153, 225, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '创业参与率（%）',
+                        data: [32, 36, 41, 45],
+                        backgroundColor: 'rgba(72, 187, 120, 0.6)',
+                        borderColor: 'rgba(72, 187, 120, 1)',
+                        borderWidth: 1,
+                        yAxisID: 'y1'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: '人数（万）', font: { size: 14 } },
+                        ticks: { font: { size: 14 } }
+                    },
+                    y1: {
+                        beginAtZero: true,
+                        position: 'right',
+                        title: { display: true, text: '参与率（%）', font: { size: 14 } },
+                        grid: { drawOnChartArea: false },
+                        ticks: { font: { size: 14 } }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { font: { size: 14 } }
+                    }
+                },
+                plugins: {
+                    legend: { position: 'bottom', labels: { font: { size: 13 } } },
+                    title: { display: true, text: '高校毕业生人数与创业参与率趋势', font: { size: 16 } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
